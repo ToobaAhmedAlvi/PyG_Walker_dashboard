@@ -1,0 +1,29 @@
+import pandas as pd
+import pygwalker as pyg
+import gradio as gr
+
+df = pd.read_csv("C:\\Users\\tooba.alvi\\OneDrive - Aga Khan University\\Documents\\GitHub\\PyG Walker\\WorldBank.csv", encoding= "utf-8")
+
+# Define a function to create the dashboard
+'''def create_dashboard():
+    df = pd.read_csv("C:\\Users\\tooba.alvi\\OneDrive - Aga Khan University\\Documents\\GitHub\\PyG Walker\\WorldBank.csv", encoding= "utf-8")
+    pyg.walk(df)
+   return pyg.get_html()
+'''
+def display_data():
+    df = pd.read_csv("C:\\Users\\tooba.alvi\\OneDrive - Aga Khan University\\Documents\\GitHub\\PyG Walker\\WorldBank.csv", encoding= "utf-8")
+    df=pd.DataFrame(df)
+    pyg.walk(df)
+    pyg_html = pyg.to_html(df)
+    vis_spec=r"""{"config":[{"config":{"defaultAggregated":true,"geoms":["auto"],"coordSystem":"generic","limit":-1,"timezoneDisplayOffset":0},"encodings":{"dimensions":[{"fid":"Year","name":"Year","basename":"Year","analyticType":"dimension","semanticType":"ordinal","aggName":"sum","offset":0},{"fid":"Country Name","name":"Country Name","basename":"Country Name","semanticType":"nominal","analyticType":"dimension","offset":0},{"fid":"Country Code","name":"Country Code","basename":"Country Code","semanticType":"nominal","analyticType":"dimension","offset":0},{"fid":"Region","name":"Region","basename":"Region","semanticType":"nominal","analyticType":"dimension","offset":0},{"fid":"IncomeGroup","name":"IncomeGroup","basename":"IncomeGroup","semanticType":"nominal","analyticType":"dimension","offset":0},{"fid":"gw_mea_key_fid","name":"Measure names","analyticType":"dimension","semanticType":"nominal"}],"measures":[{"fid":"Birth rate, crude (per 1,000 people)","name":"Birth rate, crude (per 1,000 people)","basename":"Birth rate, crude (per 1,000 people)","analyticType":"measure","semanticType":"quantitative","aggName":"sum","offset":0},{"fid":"Death rate, crude (per 1,000 people)","name":"Death rate, crude (per 1,000 people)","basename":"Death rate, crude (per 1,000 people)","analyticType":"measure","semanticType":"quantitative","aggName":"sum","offset":0},{"fid":"Electric power consumption (kWh per capita)","name":"Electric power consumption (kWh per capita)","basename":"Electric power consumption (kWh per capita)","analyticType":"measure","semanticType":"quantitative","aggName":"sum","offset":0},{"fid":"GDP (USD)","name":"GDP (USD)","basename":"GDP (USD)","analyticType":"measure","semanticType":"quantitative","aggName":"sum","offset":0},{"fid":"GDP per capita (USD)","name":"GDP per capita (USD)","basename":"GDP per capita (USD)","analyticType":"measure","semanticType":"quantitative","aggName":"sum","offset":0},{"fid":"Individuals using the Internet (% of population)","name":"Individuals using the Internet (% of population)","basename":"Individuals using the Internet (% of population)","analyticType":"measure","semanticType":"quantitative","aggName":"sum","offset":0},{"fid":"Infant mortality rate (per 1,000 live births)","name":"Infant mortality rate (per 1,000 live births)","basename":"Infant mortality rate (per 1,000 live births)","analyticType":"measure","semanticType":"quantitative","aggName":"sum","offset":0},{"fid":"Life expectancy at birth (years)","name":"Life expectancy at birth (years)","basename":"Life expectancy at birth (years)","analyticType":"measure","semanticType":"quantitative","aggName":"sum","offset":0},{"fid":"Population density (people per sq. km of land area)","name":"Population density (people per sq. km of land area)","basename":"Population density (people per sq. km of land area)","analyticType":"measure","semanticType":"quantitative","aggName":"sum","offset":0},{"fid":"Unemployment (% of total labor force) (modeled ILO estimate)","name":"Unemployment (% of total labor force) (modeled ILO estimate)","basename":"Unemployment (% of total labor force) (modeled ILO estimate)","analyticType":"measure","semanticType":"quantitative","aggName":"sum","offset":0},{"fid":"gw_count_fid","name":"Row count","analyticType":"measure","semanticType":"quantitative","aggName":"sum","computed":true,"expression":{"op":"one","params":[],"as":"gw_count_fid"}},{"fid":"gw_mea_val_fid","name":"Measure values","analyticType":"measure","semanticType":"quantitative","aggName":"sum"}],"rows":[{"fid":"Birth rate, crude (per 1,000 people)","name":"Birth rate, crude (per 1,000 people)","basename":"Birth rate, crude (per 1,000 people)","analyticType":"measure","semanticType":"quantitative","aggName":"mean","offset":0}],"columns":[{"fid":"Year","name":"Year","basename":"Year","analyticType":"dimension","semanticType":"ordinal","aggName":"sum","offset":0}],"color":[{"fid":"IncomeGroup","name":"IncomeGroup","basename":"IncomeGroup","semanticType":"nominal","analyticType":"dimension","offset":0}],"opacity":[],"size":[],"shape":[],"radius":[],"theta":[],"longitude":[],"latitude":[],"geoId":[],"details":[],"filters":[{"fid":"IncomeGroup","name":"IncomeGroup","basename":"IncomeGroup","semanticType":"nominal","analyticType":"dimension","offset":0,"rule":null}],"text":[]},"layout":{"showActions":false,"showTableSummary":false,"stack":"stack","interactiveScale":false,"zeroScale":true,"size":{"mode":"auto","width":320,"height":200},"format":{},"geoKey":"name","resolve":{"x":false,"y":false,"color":false,"opacity":false,"shape":false,"size":false}},"visId":"gw_DGUp","name":"Chart 1"}],"chart_map":{},"workflow_list":[{"workflow":[{"type":"view","query":[{"op":"aggregate","groupBy":["Year","IncomeGroup"],"measures":[{"field":"Birth rate, crude (per 1,000 people)","agg":"mean","asFieldKey":"Birth rate, crude (per 1,000 people)_mean"}]}]}]}],"version":"0.4.8.10"}"""
+    return pyg_html
+
+
+# Create a Gradio interface
+interface = gr.Interface(fn=display_data,
+                        inputs=[],
+                        outputs="html",  
+                        title="My Dashboard with PyG Walker")
+
+# Launch the interface
+interface.launch()
